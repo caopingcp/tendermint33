@@ -132,7 +132,17 @@ minExecFee=0
 enableStat=false
 enableMVCC=false
 alias=["token1:token","token2:token","token3:token"]
-saveTokenTxList=false
+
+[exec.sub.manage]
+superManager=[
+    "1CbEVT9RnM5oZhWMj4fxUrJX94VtRotzvs",
+]
+
+[exec.sub.token]
+saveTokenTxList=true
+tokenApprs = [
+        "1CbEVT9RnM5oZhWMj4fxUrJX94VtRotzvs",
+]
 
 [exec.sub.cert]
 # 是否启用证书验证和签名
