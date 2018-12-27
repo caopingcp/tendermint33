@@ -56,7 +56,7 @@ whitelist=["localhost","127.0.0.1","0.0.0.0"]
 [mempool]
 name="timeline"
 poolCacheSize=10240
-minTxFee=100000
+minTxFee=0
 
 [consensus]
 # 共识驱动名,支持solo/raft/ticket/tendermint/pbft
@@ -116,7 +116,7 @@ enableMavlPrefix=false
 enableMVCC=false
 
 [wallet]
-minFee=100000
+minFee=0
 driver="leveldb"
 dbPath="wallet"
 dbCache=16
