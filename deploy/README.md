@@ -26,89 +26,204 @@ validatorNodes=["10.0.0.1:46656","10.0.0.2:46656","10.0.0.3:46656","10.0.0.4:466
 ./chain33 -f chain33.toml
 ```
 
-- 在一个节点上使用 chain33-cli 查看区块链状态
+- 在一个节点上使用 chain33-cli 查询和更新共识状态
 
 ```shell
-#查看该节点是否与其他节点同步
-$ ./chain33-cli net is_sync
+#查询该节点的共识状态是否与其他节点同步
+$ ./chain33-cli valnode is_sync
 true
 
-#查看各个节点的信息
-$ ./chain33-cli net peer_info
+#查询 Validator 节点的信息
+$ ./chain33-cli valnode nodes
+[
+    {
+        "Address": "XfbMKIZWhdzn9vKn62Zni/KsYYA=",
+        "PubKey": "Fi9U4x38QIVZj+uLwuYwfZOwQTKV53VTCwHpr4yrMk4=",
+        "VotingPower": 10,
+        "Accum": -30
+    },
+    {
+        "Address": "f7w5dyWSgEpcJVw6Ue7VxDAEPhc=",
+        "PubKey": "WQDL3b+e3UXta4yTN48N3aGPMmxrWJ0RoXKMOYdZmvo=",
+        "VotingPower": 10,
+        "Accum": 10
+    },
+    {
+        "Address": "uALH3VlbWTF3391375nqvd4cvt8=",
+        "PubKey": "oIvYeW6/9YWoN2MXcea2kUNbqiVDmatChpwHfli8R0Y=",
+        "VotingPower": 10,
+        "Accum": 10
+    },
+    {
+        "Address": "3G84mV3/caiRkaqLFmCn3TckJms=",
+        "PubKey": "Z+7MgI4GiMMUxdQ5tou25IHmz4solSpDLKZpcls1Kcc=",
+        "VotingPower": 10,
+        "Accum": 10
+    }
+]
+
+#查询共识状态信息，包括 Commit，State，Proposal，Block
+$ ./chain33-cli valnode info -t 1
 {
-    "peers": [
-        {
-            "addr": "172.18.0.2",
-            "port": 13802,
-            "name": "0210c1c09b0d61e41d819e28dcbf1148ebae5fb12a8066a9064e7e1c2346432c91",
-            "mempoolSize": 100,
-            "self": false,
-            "header": {
-                "version": 0,
-                "parentHash": "0x38e72824d7eb1e147ec5b45f281746f934d152d3f1c04d165b9aa326d7cf407d",
-                "txHash": "0xfc26ee8f9aab9362e3f6b6289dad94111eedf9278972a61fcfa5a0aae471d3bf",
-                "stateHash": "0x88f0b06df8cd2cd6da81e1580e6f179128e42aa8c66e2dba9c38af3e18f9fa44",
-                "height": 52510,
-                "blockTime": 1545876177,
-                "txCount": 101,
-                "hash": "0x808a985f4fa63922c96fb68d896a840a637bbf94655c2eccacb876f5a07849af",
-                "difficulty": 0
+    "SeenCommit": {
+        "BlockID": {
+            "Hash": "onFZX3CHDbc7yX3SXRT4Zvn5q5E="
+        },
+        "Precommits": [
+            {
+                "ValidatorAddress": "XfbMKIZWhdzn9vKn62Zni/KsYYA=",
+                "Height": 1,
+                "Timestamp": 1549952257288655640,
+                "Type": 2,
+                "BlockID": {
+                    "Hash": "onFZX3CHDbc7yX3SXRT4Zvn5q5E="
+                },
+                "Signature": "pECET6d8YrsQUC9RVc1RaBj/xW84uM01WG86cBy/Yh4uFSAeDBmYeG1uxNtrOtevPMNZE+ydadDIwrBIugzNDA=="
+            },
+            {},
+            {
+                "ValidatorAddress": "uALH3VlbWTF3391375nqvd4cvt8=",
+                "ValidatorIndex": 2,
+                "Height": 1,
+                "Timestamp": 1549952257271146959,
+                "Type": 2,
+                "BlockID": {
+                    "Hash": "onFZX3CHDbc7yX3SXRT4Zvn5q5E="
+                },
+                "Signature": "j/ft+cfJj8ypM5TAqImEJFeJ6tSWSq9lNf8CKbhkW0XEpgBjGK6n4KrfiGMn9GgIEoO42s5e1bluT6L+PMmcBQ=="
+            },
+            {
+                "ValidatorAddress": "3G84mV3/caiRkaqLFmCn3TckJms=",
+                "ValidatorIndex": 3,
+                "Height": 1,
+                "Timestamp": 1549952257236228239,
+                "Type": 2,
+                "BlockID": {
+                    "Hash": "onFZX3CHDbc7yX3SXRT4Zvn5q5E="
+                },
+                "Signature": "CULL+q7w5Q1B7st1S36EQ5v9kq7Phgqk7c8FrSC7SxX6fhOketGXw++UOEWt6zzI+Jb+oGMEfIkXRlBaFmUkCg=="
+            }
+        ]
+    },
+    "LastCommit": {},
+    "State": {
+        "ChainID": "chain33-Z2cgFj",
+        "LastBlockHeight": 1,
+        "LastBlockTime": 1549952257152892815,
+        "Validators": {
+            "Validators": [
+                {
+                    "Address": "XfbMKIZWhdzn9vKn62Zni/KsYYA=",
+                    "PubKey": "Fi9U4x38QIVZj+uLwuYwfZOwQTKV53VTCwHpr4yrMk4=",
+                    "VotingPower": 10,
+                    "Accum": -20
+                },
+                {
+                    "Address": "f7w5dyWSgEpcJVw6Ue7VxDAEPhc=",
+                    "PubKey": "WQDL3b+e3UXta4yTN48N3aGPMmxrWJ0RoXKMOYdZmvo=",
+                    "VotingPower": 10,
+                    "Accum": -20
+                },
+                {
+                    "Address": "uALH3VlbWTF3391375nqvd4cvt8=",
+                    "PubKey": "oIvYeW6/9YWoN2MXcea2kUNbqiVDmatChpwHfli8R0Y=",
+                    "VotingPower": 10,
+                    "Accum": 20
+                },
+                {
+                    "Address": "3G84mV3/caiRkaqLFmCn3TckJms=",
+                    "PubKey": "Z+7MgI4GiMMUxdQ5tou25IHmz4solSpDLKZpcls1Kcc=",
+                    "VotingPower": 10,
+                    "Accum": 20
+                }
+            ],
+            "Proposer": {
+                "Address": "f7w5dyWSgEpcJVw6Ue7VxDAEPhc=",
+                "PubKey": "WQDL3b+e3UXta4yTN48N3aGPMmxrWJ0RoXKMOYdZmvo=",
+                "VotingPower": 10,
+                "Accum": -20
             }
         },
-        {
-            "addr": "172.18.0.3",
-            "port": 13802,
-            "name": "03e8c670f6641e2cc73d149610fd81ffb94c20b83e9428bd61f834adcbf33b3927",
-            "mempoolSize": 100,
-            "self": false,
-            "header": {
-                "version": 0,
-                "parentHash": "0x38e72824d7eb1e147ec5b45f281746f934d152d3f1c04d165b9aa326d7cf407d",
-                "txHash": "0xfc26ee8f9aab9362e3f6b6289dad94111eedf9278972a61fcfa5a0aae471d3bf",
-                "stateHash": "0x88f0b06df8cd2cd6da81e1580e6f179128e42aa8c66e2dba9c38af3e18f9fa44",
-                "height": 52510,
-                "blockTime": 1545876177,
-                "txCount": 101,
-                "hash": "0x808a985f4fa63922c96fb68d896a840a637bbf94655c2eccacb876f5a07849af",
-                "difficulty": 0
+        "LastValidators": {
+            "Validators": [
+                {
+                    "Address": "XfbMKIZWhdzn9vKn62Zni/KsYYA=",
+                    "PubKey": "Fi9U4x38QIVZj+uLwuYwfZOwQTKV53VTCwHpr4yrMk4=",
+                    "VotingPower": 10,
+                    "Accum": -30
+                },
+                {
+                    "Address": "f7w5dyWSgEpcJVw6Ue7VxDAEPhc=",
+                    "PubKey": "WQDL3b+e3UXta4yTN48N3aGPMmxrWJ0RoXKMOYdZmvo=",
+                    "VotingPower": 10,
+                    "Accum": 10
+                },
+                {
+                    "Address": "uALH3VlbWTF3391375nqvd4cvt8=",
+                    "PubKey": "oIvYeW6/9YWoN2MXcea2kUNbqiVDmatChpwHfli8R0Y=",
+                    "VotingPower": 10,
+                    "Accum": 10
+                },
+                {
+                    "Address": "3G84mV3/caiRkaqLFmCn3TckJms=",
+                    "PubKey": "Z+7MgI4GiMMUxdQ5tou25IHmz4solSpDLKZpcls1Kcc=",
+                    "VotingPower": 10,
+                    "Accum": 10
+                }
+            ],
+            "Proposer": {
+                "Address": "XfbMKIZWhdzn9vKn62Zni/KsYYA=",
+                "PubKey": "Fi9U4x38QIVZj+uLwuYwfZOwQTKV53VTCwHpr4yrMk4=",
+                "VotingPower": 10,
+                "Accum": -30
             }
         },
-        {
-            "addr": "172.18.0.4",
-            "port": 13802,
-            "name": "03a4f80a2d73f999b44e3b1137676e00e5eb1357ce22e9a296b5032cf1d128e0dc",
-            "mempoolSize": 100,
-            "self": false,
-            "header": {
-                "version": 0,
-                "parentHash": "0x38e72824d7eb1e147ec5b45f281746f934d152d3f1c04d165b9aa326d7cf407d",
-                "txHash": "0xfc26ee8f9aab9362e3f6b6289dad94111eedf9278972a61fcfa5a0aae471d3bf",
-                "stateHash": "0x88f0b06df8cd2cd6da81e1580e6f179128e42aa8c66e2dba9c38af3e18f9fa44",
-                "height": 52510,
-                "blockTime": 1545876177,
-                "txCount": 101,
-                "hash": "0x808a985f4fa63922c96fb68d896a840a637bbf94655c2eccacb876f5a07849af",
-                "difficulty": 0
+        "LastHeightValidatorsChanged": 1,
+        "ConsensusParams": {
+            "BlockSize": {
+                "MaxBytes": 22020096,
+                "MaxTxs": 100000,
+                "MaxGas": -1
+            },
+            "TxSize": {
+                "MaxBytes": 10240,
+                "MaxGas": -1
+            },
+            "BlockGossip": {
+                "BlockPartSizeBytes": 65536
+            },
+            "EvidenceParams": {
+                "MaxAge": 100000
             }
         },
-        {
-            "addr": "172.18.0.5",
-            "port": 13802,
-            "name": "0382362b8b1d374646f728ae4e93e103f237747ef59a7518117f4c3483cb05a17b",
-            "mempoolSize": 100,
-            "self": true,
-            "header": {
-                "version": 0,
-                "parentHash": "0x38e72824d7eb1e147ec5b45f281746f934d152d3f1c04d165b9aa326d7cf407d",
-                "txHash": "0xfc26ee8f9aab9362e3f6b6289dad94111eedf9278972a61fcfa5a0aae471d3bf",
-                "stateHash": "0x88f0b06df8cd2cd6da81e1580e6f179128e42aa8c66e2dba9c38af3e18f9fa44",
-                "height": 52510,
-                "blockTime": 1545876177,
-                "txCount": 101,
-                "hash": "0x808a985f4fa63922c96fb68d896a840a637bbf94655c2eccacb876f5a07849af",
-                "difficulty": 0
-            }
-        }
-    ]
+        "LastHeightConsensusParamsChanged": 1
+    },
+    "Proposal": {
+        "height": 1,
+        "timestamp": 1549952257153442871,
+        "POLRound": -1,
+        "POLBlockID": {},
+        "signature": "lzakTHOmuIGVjt0nMeGPaOb1pz1OdoUOVccx6x66r88/7+2DrhyQKHjW2nY5gbr7Jo/M8lt201ppwP14y3lfAQ==",
+        "blockhash": "onFZX3CHDbc7yX3SXRT4Zvn5q5E="
+    },
+    "block": {
+        "header": {
+            "chainID": "chain33-Z2cgFj",
+            "height": 1,
+            "time": 1549952257152892815,
+            "lastBlockID": {},
+            "validatorsHash": "blfKcVDClMuaCxN/edFDatBah1dlWB3ITAsIras+DxY=",
+            "consensusHash": "/GlQqG9MV+dJNFIoxo0NOSvVUDU="
+        },
+        "evidence": {},
+        "lastCommit": {},
+        "proposerAddr": "XfbMKIZWhdzn9vKn62Zni/KsYYA="
+    }
 }
+
+#删除 Validator 节点
+$ ./chain33-cli valnode add -p 162F54E31DFC4085598FEB8BC2E6307D93B0413295E775530B01E9AF8CAB324E -w 0
+
+#增加 Validator 节点，power 值必须少于当前总的 voting power 值的 1/3
+$ ./chain33-cli valnode add -p 162F54E31DFC4085598FEB8BC2E6307D93B0413295E775530B01E9AF8CAB324E -w 9
 ```
